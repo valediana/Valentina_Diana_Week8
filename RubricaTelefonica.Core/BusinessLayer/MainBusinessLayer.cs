@@ -49,16 +49,31 @@ namespace RubricaTelefonica.Core.BusinessLayer
             //se esiste: cerco indirizzi del contatto- se indirizzi non esistono elimino
             //metodo per controllare
             Contatto contattoDaElim = new Contatto();
+            Esito messaggio = new Esito();
             List<Contatto> contatti = ViewAllContatti();
-            foreach(var item in contatti)
+            List<Indirizzo> indirizzi = GetAllIndirizzi();
+            foreach (var item in contatti)
             {
                 if (id == item.IdContatto)
                 {
                     contattoDaElim = item;
                 }
+                else
+                {
+                    messaggio = new Esito { Messaggio = "Questo ID  non esiste" };
+                }
             }
-            contattiRepo.Delete(contattoDaElim);
-            return new Esito { Messaggio = "Eliminato", IsOk = true };
+               
+            foreach(var item in indirizzi)
+            {
+                if (item.IdContatto==id)
+                {
+                    messaggio = new Esito { Messaggio = "ERRORE. Non puoi eliminare questo contatto" };
+                }
+            }
+            messaggio = contattiRepo.Delete(contattoDaElim);
+            return messaggio;
+             
         }
 
         private List<Indirizzo> GetAllIndirizzi()

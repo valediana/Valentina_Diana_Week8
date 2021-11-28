@@ -94,8 +94,8 @@ namespace RubricaTelefonica.ConsoleApp
             }
             Contatto contattoDaEliminare = new Contatto();
             Esito elimin = bl.DeleteContatto(codice);
-           
-                Console.WriteLine($"{elimin.Messaggio}");
+            
+            Console.WriteLine($"{elimin.Messaggio}");
        }
 
         private static void AggiungiIndirizzo()

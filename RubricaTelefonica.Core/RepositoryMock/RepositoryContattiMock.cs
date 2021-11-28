@@ -12,8 +12,8 @@ namespace RubricaTelefonica.Core.RepositoryMock
     {
         public static List<Contatto> contatti = new List<Contatto>()
         {
-            new Contatto{Nome="Anna", Cognome="Bianchi", IdContatto=10},
-            new Contatto{Nome="Marco", Cognome="Verdi", IdContatto=11}
+            new Contatto{Nome="Anna", Cognome="Bianchi", IdContatto=10, IdIndirizzo=10},
+            new Contatto{Nome="Marco", Cognome="Verdi", IdContatto=11, IdIndirizzo=11}
         };
         public Contatto Add(Contatto item)
         {
@@ -39,14 +39,15 @@ namespace RubricaTelefonica.Core.RepositoryMock
 
         public Esito Delete(Contatto cont)
         {
-            if(cont.IdIndirizzo!=0 || cont.Indirizzi==null)
-                {
-                    contatti.Remove(cont);
-                    return new Esito { Messaggio = "Contatto rimosso", IsOk = true };
-                }
-            
-            return new Esito { Messaggio = "Non puoi rimuovere il contatto", IsOk = false };
-            
+            if (cont.IdIndirizzo>=10)
+            {
+                return new Esito { Messaggio = "Non puoi rimuovere il contatto", IsOk = false };
+            }
+            else
+            {
+                contatti.Remove(cont);
+                return new Esito { Messaggio = "Contatto rimosso", IsOk = true };
+            }
         }
 
       
